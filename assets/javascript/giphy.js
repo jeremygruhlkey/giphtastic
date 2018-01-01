@@ -1,8 +1,41 @@
-var villians = ["Annie Wilkes", "Hans Gruber", "Patrick Bateman", "Gollum", "Joker", "Hans Landa", "Harley Quinn", "Bill the Butcher"];
+var villians = ["Annie Wilkes", "Lex Luthor", "Patrick Bateman", "Gollum", "Joker", "Hans Landa", "Harley Quinn", "Bill the Butcher"];
 
+// API key tYXw7aUMNKcmjejpFQhLncBUY285U7iN
+function displayGiphs() {
+    
+            var villian = $(this).attr("villian-name");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tYXw7aUMNKcmjejpFQhLncBUY285U7iN&q=" + villian + "&limit=1&offset=0&rating=R&lang=en";
+    
+            // Creates AJAX call for the specific movie button being clicked
+            $.ajax({
+              url: queryURL,
+              method: "GET"
+            }).done(function(response) {
+                console.log(response);
+                console.log("rating is " + response.data[0].rating);
+                console.log("giphSource " + response.data[0].images.original.url);
+    
+              // Creates a div to hold the movie
+              var villianDiv = $("<div class = villian >");
+              // Retrieves the Rating Data
+              var rating = response.data[0].rating;
+              // Creates an element to have the rating displayed
+              var pRating = $("<p>").text("Rating: " + rating);
+              // Displays the rating
+              villianDiv.append(pRating);
+              // creates an element to hold the gif
+              var giphSource = response.data[0].images.original.url;
+              var giph = $("<img>").attr("src", giphSource);
+              console.log("giph " + giphSource);
+              villianDiv.append(giph);
+              // Puts the gif and rating into the villanGiphs div.
+              $("#villianGiphs").append(villianDiv);
+            });
+    
+          }
 function renderButtons() {
     
-            // Deletes the villians prior to adding new movies
+            // Deletes the villians prior to adding new villians
             // (this is necessary otherwise you will have repeat buttons)
             $("#villianButtons").empty();
             // Loops through the array of movies
@@ -35,4 +68,9 @@ $("#addVillian").on("click", function(event) {
     renderButtons();
   });
 
-          renderButtons();
+        // Adding click event listeners to all elements with a class of "movie"
+      $(document).on("click", ".villian", displayGiphs);
+      
+        renderButtons();
+
+
