@@ -1,4 +1,4 @@
-var villians = ["Annie Wilkes", "Lex Luthor", "Patrick Bateman", "Gollum", "Joker", "Hans Landa", "Harley Quinn", "Bill the Butcher"];
+var villians = ["Annie Wilkes", "Skeletor", "Patrick Bateman", "Mr Burns", "Mr Blonde", "Joker", "Hans Landa", "Harley Quinn", "Bill the Butcher", "Drumpf"];
 
 // API key tYXw7aUMNKcmjejpFQhLncBUY285U7iN
 function displayGiphs() {
@@ -14,9 +14,10 @@ function displayGiphs() {
                 console.log(response);
                 console.log("rating is " + response.data[0].rating);
                 console.log("giphSource " + response.data[0].images.original.url);
+                $("#villianGiphs").empty();
             for (var i = 0; i < 10; i++) {
-              // Creates a div to hold the movie
-              var villianDiv = $("<div class = villian >");
+              // Creates a div to hold the giff
+              var villianDiv = $("<div class = villianImage >");
               // Retrieves the Rating Data
               var rating = response.data[i].rating;
               // Creates an element to have the rating displayed
@@ -24,9 +25,11 @@ function displayGiphs() {
               // Displays the rating
               villianDiv.append(pRating);
               // creates an element to hold the gif
-              var giphSource = response.data[i].images.fixed_height_small.url;
-              var giph = $("<img>").attr("src", giphSource);
-              console.log("giph " + giphSource);
+              var giphSource = response.data[i].images.fixed_height_small_still.url;
+              var animate = response.data[i].images.fixed_height_small.url
+              var giph = $("<img class=gif >").attr("src", giphSource);
+              giph.attr("data-animate", animate);
+            //   console.log("giph " + giphSource);
               villianDiv.append(giph);
               // Puts the gif and rating into the villanGiphs div.
               $("#villianGiphs").append(villianDiv);
@@ -69,8 +72,20 @@ $("#addVillian").on("click", function(event) {
     renderButtons();
   });
 
+  function animateGiphs() {
+      
+      var originalSource = $(this).attr("src");
+      var newSource = $(this).attr("data-animate");
+      console.log("Or " + originalSource);
+      console.log("New " + newSource);
+      $(this).attr("src", newSource);
+      $(this).attr("data-animate", originalSource);
+    
+  }
+
         // Adding click event listeners to all elements with a class of "movie"
       $(document).on("click", ".villian", displayGiphs);
+      $(document).on("click", ".gif", animateGiphs);
       
         renderButtons();
 
