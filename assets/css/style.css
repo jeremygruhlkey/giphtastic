@@ -1,4 +1,35 @@
-#newVillian {
-    float: right;
+body {
+    background-color: rgb(135, 135, 241);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+button {
+    margin: 2px;
+    color: red;
+    background-color: rgb(201, 192, 192);
+}
+#villianButtons {
+    /* height: 45px; */
+    width: 70%;
+    border: 2px;
 }
 
+#newVillian {
+    align-self: flex-end;
+    margin: 30px 40px 5px 0px;
+}
+
+#villianGiphs {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.villianImage {
+    /* float: left; */
+    margin: 5px;
+}
