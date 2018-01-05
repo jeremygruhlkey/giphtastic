@@ -6,7 +6,7 @@ function displayGiphs() {
             var villian = $(this).attr("villian-name");
             var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tYXw7aUMNKcmjejpFQhLncBUY285U7iN&q=" + villian + "&limit=10&offset=0&rating=R&lang=en";
     
-            // Creates AJAX call for the specific movie button being clicked
+            // Creates AJAX call for the specific villian button being clicked
             $.ajax({
               url: queryURL,
               method: "GET"
@@ -18,13 +18,13 @@ function displayGiphs() {
             for (var i = 0; i < 10; i++) {
               // Creates a div to hold the giff
               var villianDiv = $("<div class = villianImage >");
-              // Retrieves the Rating Data
+              // Retrieves the rating Data
               var rating = response.data[i].rating;
               // Creates an element to have the rating displayed
               var pRating = $("<p>").text("Rating: " + rating);
               // Displays the rating
               villianDiv.append(pRating);
-              // creates an element to hold the gif
+              // creates an img element to hold the gif
               var giphSource = response.data[i].images.fixed_height_small_still.url;
               var animate = response.data[i].images.fixed_height_small.url
               var giph = $("<img class=gif >").attr("src", giphSource);
@@ -39,14 +39,12 @@ function displayGiphs() {
           }
 function renderButtons() {
     
-            // Deletes the villians prior to adding new villians
-            // (this is necessary otherwise you will have repeat buttons)
+            // Deletes the villians prior to adding new villians to avoid repeat buttons
             $("#villianButtons").empty();
             // Loops through the array of movies
             for (var i = 0; i < villians.length; i++) {
     
-              // Then dynamicaly generates buttons for each movie in the array
-              // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+              // Generates buttons for each movie in the array
               var a = $("<button>");
               // Adds a class of villian to our button
               a.addClass("villian");
@@ -54,7 +52,7 @@ function renderButtons() {
               a.attr("villian-name", villians[i]);
               // Provided the initial button text
               a.text(villians[i]);
-              // Added the button to the buttons-view div
+              // Added the button to the villianButtons div
               $("#villianButtons").append(a);
             }
           }
