@@ -71,18 +71,19 @@ $("#addVillian").on("click", function(event) {
   });
 
   function animateGiphs() {
-      
+      // declares two variables to hold the current values of source and animate attributes
       var originalSource = $(this).attr("src");
       var newSource = $(this).attr("data-animate");
-      console.log("Or " + originalSource);
-      console.log("New " + newSource);
+      // swaps the two values...these will reverse on each click
       $(this).attr("src", newSource);
       $(this).attr("data-animate", originalSource);
     
   }
 
-        // Adding click event listeners to all elements with a class of "movie"
+        // Adding click event listeners to all elements with a class of .villian
       $(document).on("click", ".villian", displayGiphs);
+
+      // Adding click even listeners to al elements with a class of .gif
       $(document).on("click", ".gif", animateGiphs);
       
         renderButtons();
